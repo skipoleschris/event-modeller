@@ -1,20 +1,11 @@
 package uk.co.skipoles.eventmodeller.definition
 
-import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ModelDefinitionItemTest {
-
-  @Test
-  fun `defaults the correct context on creation if not explicitly specified`() {
-    ModelDefinitionItem(ModelDefinitionItemType.Command, "Command").context.shouldBeNull()
-    ModelDefinitionItem(ModelDefinitionItemType.Event, "Event").context.shouldBeNull()
-    ModelDefinitionItem(ModelDefinitionItemType.Event, "Event", "Aggregate").context shouldBe
-        ModelDefinitionContext(ModelDefinitionContextType.Aggregate, "Aggregate")
-  }
 
   @Test
   fun `returns the explicitly specified context`() {
@@ -42,15 +33,8 @@ class ModelDefinitionItemTest {
   }
 
   @Test
-  fun `determines the event handler context for an Event with no explicit context or aggregate`() {
+  fun `determines the event handler context for an Event with no explicit context`() {
     ModelDefinitionItem(ModelDefinitionItemType.Event, "Event").getOrDeriveContext() shouldBe
         ModelDefinitionContext.EVENT_HANDLER_CONTEXT
-  }
-
-  @Test
-  fun `determines a custom aggregate context for an Event with no explicit context but an aggregate defined`() {
-    ModelDefinitionItem(ModelDefinitionItemType.Event, "Event", "Aggregate", null)
-        .getOrDeriveContext() shouldBe
-        ModelDefinitionContext(ModelDefinitionContextType.Aggregate, "Aggregate")
   }
 }
