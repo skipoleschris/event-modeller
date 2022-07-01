@@ -1,5 +1,6 @@
 package uk.co.skipoles.eventmodeller.definition
 
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -13,7 +14,7 @@ class ModelDefinitionContextTest {
     ModelDefinitionContext.PROCESS_CONTEXT.isDefault().shouldBeTrue()
     ModelDefinitionContext.TIME_LINE_CONTEXT.isDefault().shouldBeTrue()
     ModelDefinitionContext.EVENT_HANDLER_CONTEXT.isDefault().shouldBeTrue()
-    ModelDefinitionContext(ModelDefinitionContextType.Aggregate, "Test").isDefault().shouldBeTrue()
+    ModelDefinitionContext(ModelDefinitionContextType.Aggregate, "Test").isDefault().shouldBeFalse()
   }
 
   @Test
