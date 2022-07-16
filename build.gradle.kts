@@ -9,6 +9,10 @@ version = "1.0-SNAPSHOT"
 repositories { mavenCentral() }
 
 dependencies {
+  implementation("org.jfree:jfreesvg:3.4.2")
+  implementation("org.apache.xmlgraphics:batik-transcoder:1.14")
+  implementation("org.apache.xmlgraphics:batik-codec:1.14")
+
   testImplementation(kotlin("test"))
   testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.0")
   testImplementation("io.mockk:mockk:1.12.4")

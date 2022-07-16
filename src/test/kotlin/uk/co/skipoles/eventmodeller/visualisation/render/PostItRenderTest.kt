@@ -10,7 +10,7 @@ import uk.co.skipoles.eventmodeller.visualisation.CommandPostIt
 import uk.co.skipoles.eventmodeller.visualisation.SwimLane
 import uk.co.skipoles.eventmodeller.visualisation.SwimLaneType
 
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PostItRenderTest {
 
   private val mockGraphics = ImagedBackedGraphics2DMock()
