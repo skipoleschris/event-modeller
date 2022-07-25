@@ -53,8 +53,8 @@ class SvgDocumentGenerator(private val model: VisualisationModel) {
       val start = points.first()
       val end = points.last()
       graphics.drawLine(start.x, start.y, end.x, end.y)
-      if (hasArrowTo && index == 0) graphics.drawArrow(start.x, end.x, start.y, end.y)
-      if (hasArrowFrom && index == pointPairs.lastIndex)
+      if (hasArrowFrom && index == 0) graphics.drawArrow(start.x, end.x, start.y, end.y)
+      if (hasArrowTo && index == pointPairs.lastIndex)
           graphics.drawArrow(end.x, start.x, end.y, start.y)
     }
   }

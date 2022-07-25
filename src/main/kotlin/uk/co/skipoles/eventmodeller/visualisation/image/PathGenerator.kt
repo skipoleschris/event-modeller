@@ -17,13 +17,13 @@ internal object PathGenerator {
       model.postIts.flatMap { generateDirectPaths(model, it) }
 
   private fun generateDirectPaths(model: VisualisationModel, postIt: PostIt): List<Path> =
-      model.links[postIt]?.map { generateDirectPath(it.postIt, postIt, it.bidirectional) }
+      model.links[postIt]?.map { generateDirectPath(postIt, it.postIt, it.bidirectional) }
           ?: emptyList()
 
   private fun generateDirectPath(from: PostIt, to: PostIt, bidirectional: Boolean): Path {
     val (fromX, toX) = xPositionsRelativeToPostIts(from, to)
     val (fromY, toY) = yPositionsRelativeToPostIts(from, to)
-    return Path(Point(fromX, fromY), Point(toX, toY), bidirectional, true, to.color)
+    return Path(Point(fromX, fromY), Point(toX, toY), bidirectional, true, from.color)
   }
 
   private fun xPositionsRelativeToPostIts(from: PostIt, to: PostIt): Pair<Int, Int> {

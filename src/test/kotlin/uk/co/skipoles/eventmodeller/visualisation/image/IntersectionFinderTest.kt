@@ -10,7 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class RoutingUtilsTest {
+class IntersectionFinderTest {
 
   private val box = AvoidanceBox(100, 100, 150, 150)
   private val box2 = AvoidanceBox(350, 100, 150, 150)
@@ -18,7 +18,7 @@ class RoutingUtilsTest {
   @ParameterizedTest
   @MethodSource("bresenhamLines")
   fun `bresenham routing algorithm should be correct`(data: ExpectedLineData) {
-    RoutingUtils.pointsOnLineBetween(data.from, data.to) shouldBe data.expected
+    IntersectionFinder.pointsOnLineBetween(data.from, data.to) shouldBe data.expected
   }
 
   private fun bresenhamLines() =
@@ -38,13 +38,13 @@ class RoutingUtilsTest {
   @Test
   fun `path not crossing a box should not intersect`() {
     val path = Path(p(50, 50), p(200, 50), hasArrowFrom = false, hasArrowTo = true, Color.black)
-    RoutingUtils.intersectionsBetween(listOf(path), listOf(box)).shouldBeEmpty()
+    IntersectionFinder.between(listOf(path), listOf(box)).shouldBeEmpty()
   }
 
   @Test
   fun `simple path crossing a box should intersect`() {
     val path = Path(p(50, 150), p(300, 150), hasArrowFrom = false, hasArrowTo = true, Color.black)
-    RoutingUtils.intersectionsBetween(listOf(path), listOf(box)) shouldBe
+    IntersectionFinder.between(listOf(path), listOf(box)) shouldBe
         listOf(
             Intersection(
                 path, path.elements.first(), path.elements.last(), box, p(100, 150), p(250, 150)))
@@ -62,7 +62,7 @@ class RoutingUtilsTest {
             hasArrowFrom = false,
             hasArrowTo = true,
             Color.black)
-    RoutingUtils.intersectionsBetween(listOf(path), listOf(box)) shouldBe
+    IntersectionFinder.between(listOf(path), listOf(box)) shouldBe
         listOf(
             Intersection(path, path.elements[1], path.elements[2], box, p(100, 150), p(250, 150)))
   }
@@ -80,7 +80,7 @@ class RoutingUtilsTest {
             hasArrowFrom = false,
             hasArrowTo = true,
             Color.black)
-    RoutingUtils.intersectionsBetween(listOf(path), listOf(box)) shouldBe
+    IntersectionFinder.between(listOf(path), listOf(box)) shouldBe
         listOf(
             Intersection(path, path.elements[1], path.elements[2], box, p(100, 150), p(250, 150)))
   }
@@ -88,7 +88,7 @@ class RoutingUtilsTest {
   @Test
   fun `path crossing multiple boxes should intersect only the first`() {
     val path = Path(p(50, 150), p(600, 150), hasArrowFrom = false, hasArrowTo = true, Color.black)
-    RoutingUtils.intersectionsBetween(listOf(path), listOf(box, box2)) shouldBe
+    IntersectionFinder.between(listOf(path), listOf(box, box2)) shouldBe
         listOf(
             Intersection(
                 path, path.elements.first(), path.elements.last(), box, p(100, 150), p(250, 150)))

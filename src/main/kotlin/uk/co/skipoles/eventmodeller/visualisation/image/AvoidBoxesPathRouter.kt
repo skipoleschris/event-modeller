@@ -3,7 +3,7 @@ package uk.co.skipoles.eventmodeller.visualisation.image
 internal object AvoidBoxesPathRouter {
 
   fun routeAroundBoxes(paths: List<Path>, boxes: List<AvoidanceBox>): List<Path> {
-    val intersections = RoutingUtils.intersectionsBetween(paths, boxes)
+    val intersections = IntersectionFinder.between(paths, boxes)
     return if (intersections.isEmpty()) paths
     else {
       val routedPaths = intersections.map(::splitPath)

@@ -13,7 +13,7 @@ import uk.co.skipoles.eventmodeller.visualisation.image.ImageSettings.postItSize
 import uk.co.skipoles.eventmodeller.visualisation.image.ImageSettings.verticalSpace
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ImageUtilsTest {
+class PostItPositioningTest {
 
   private val swimLane = SwimLane(SwimLaneType.Timeline, 1, false, "Timeline")
   private val postIt = CommandPostIt(swimLane, "Test", 1)

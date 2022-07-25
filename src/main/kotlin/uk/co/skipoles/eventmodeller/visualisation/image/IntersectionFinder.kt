@@ -2,7 +2,7 @@ package uk.co.skipoles.eventmodeller.visualisation.image
 
 import kotlin.math.abs
 
-internal object RoutingUtils {
+internal object IntersectionFinder {
 
   fun pointsOnLineBetween(start: Point, end: Point): List<Point> {
     // Bresenham algorithm
@@ -39,7 +39,7 @@ internal object RoutingUtils {
     return points.toList()
   }
 
-  fun intersectionsBetween(paths: List<Path>, boxes: List<AvoidanceBox>): List<Intersection> =
+  fun between(paths: List<Path>, boxes: List<AvoidanceBox>): List<Intersection> =
       paths.mapNotNull { firstIntersectionBetween(it, boxes) }
 
   private fun firstIntersectionBetween(path: Path, boxes: List<AvoidanceBox>): Intersection? =

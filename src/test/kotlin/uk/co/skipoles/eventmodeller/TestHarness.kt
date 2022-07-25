@@ -20,7 +20,7 @@ fun main() {
   val panel = ImagePanel(svgGenerator.renderDocument().asPNG())
   val scroller = JScrollPane()
   scroller.setViewportView(panel)
-  scroller.preferredSize = Dimension(2048, 1200)
+  scroller.preferredSize = Dimension(1500, 800)
   val frame = JFrame("Test")
   frame.contentPane.layout = FlowLayout()
   frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
