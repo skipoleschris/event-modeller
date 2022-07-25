@@ -42,7 +42,7 @@ internal object RoutingUtils {
   fun intersectionsBetween(paths: List<Path>, boxes: List<AvoidanceBox>): List<Intersection> =
       paths.mapNotNull { firstIntersectionBetween(it, boxes) }
 
-  fun firstIntersectionBetween(path: Path, boxes: List<AvoidanceBox>): Intersection? =
+  private fun firstIntersectionBetween(path: Path, boxes: List<AvoidanceBox>): Intersection? =
       path.elements.windowed(2).firstNotNullOfOrNull {
         intersectsAny(path, it.first(), it.last(), boxes)
       }
