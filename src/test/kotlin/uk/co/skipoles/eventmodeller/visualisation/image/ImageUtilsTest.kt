@@ -2,6 +2,7 @@ package uk.co.skipoles.eventmodeller.visualisation.image
 
 import io.kotest.matchers.shouldBe
 import java.util.stream.Stream
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
@@ -21,13 +22,13 @@ class ImageUtilsTest {
   @ParameterizedTest
   @MethodSource("positions100Percent")
   fun `identify post it at given position on non-scaled image`(data: PositionData) {
-    postItAtPosition(model, data.x, data.y) shouldBe data.expected
+    ImagePositions.postItAtPosition(model, data.x, data.y) shouldBe data.expected
   }
 
   @ParameterizedTest
   @MethodSource("positions50Percent")
   fun `identify post it at given position on scaled image`(data: PositionData) {
-    postItAtPosition(model, data.x, data.y, 0.5) shouldBe data.expected
+    ImagePositions.postItAtPosition(model, data.x, data.y, 0.5) shouldBe data.expected
   }
 
   private fun positions100Percent(): Stream<PositionData> {
@@ -58,4 +59,24 @@ class ImageUtilsTest {
   }
 
   data class PositionData(val x: Int, val y: Int, val expected: PostIt?)
+
+  @Test
+  fun `know the various positions of the PostIt`() {
+    ImagePositions.topOfPostIt(postIt) shouldBe verticalSpace
+    ImagePositions.bottomOfPostIt(postIt) shouldBe (verticalSpace + postItSize)
+    ImagePositions.leftOfPostIt(postIt) shouldBe horizontalSize + horizontalSpace
+    ImagePositions.rightOfPostIt(postIt) shouldBe (horizontalSize + horizontalSpace + postItSize)
+    ImagePositions.horizontalCenterOfPostIt(postIt) shouldBe
+        (horizontalSize + horizontalSpace + (postItSize / 2))
+    ImagePositions.horizontalLeftQuarterOfPostIt(postIt) shouldBe
+        (horizontalSize + horizontalSpace + (postItSize / 4))
+    ImagePositions.horizontalRightQuarterOfPostIt(postIt) shouldBe
+        (horizontalSize + horizontalSpace + postItSize - (postItSize / 4))
+    ImagePositions.verticalCenterOfPostIt(postIt) shouldBe (verticalSpace + (postItSize / 2))
+  }
+
+  @Test
+  fun `determine the position of the PostIt`() {
+    ImagePositions.of(postIt) shouldBe ImagePositions.Position(1, 1)
+  }
 }
