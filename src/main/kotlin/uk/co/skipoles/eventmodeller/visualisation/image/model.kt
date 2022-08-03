@@ -15,36 +15,34 @@ internal object ImageSettings {
 
 data class Point(val x: Int, val y: Int)
 
-internal interface PathElement {
+interface PathElement {
   fun points(): List<Point>
 }
 
-internal data class ConnectedPathElement(val point: Point) : PathElement {
+data class ConnectedPathElement(val point: Point) : PathElement {
   override fun points() = listOf(point)
 }
 
-internal enum class SinglePointRerouteDirection {
+enum class SinglePointRerouteDirection {
   TopLeft,
   TopRight,
   BottomLeft,
   BottomRight
 }
 
-internal data class ReroutedPathElement(
-    val point: Point,
-    val direction: SinglePointRerouteDirection
-) : PathElement {
+data class ReroutedPathElement(val point: Point, val direction: SinglePointRerouteDirection) :
+    PathElement {
   override fun points() = listOf(point)
 }
 
-internal enum class DoublePointRerouteDirection {
+enum class DoublePointRerouteDirection {
   Top,
   Bottom,
   Left,
   Right
 }
 
-internal data class DoubleReroutedPathElement(
+data class DoubleReroutedPathElement(
     val point1: Point,
     val point2: Point,
     val direction: DoublePointRerouteDirection
@@ -52,28 +50,28 @@ internal data class DoubleReroutedPathElement(
   override fun points() = listOf(point1, point2)
 }
 
-internal data class Path(
+data class Path(
     val elements: List<PathElement>,
-    val hasArrowFrom: Boolean,
-    val hasArrowTo: Boolean,
-    val color: Color
+    val hasArrowFrom: Boolean = false,
+    val hasArrowTo: Boolean = true,
+    val color: Color = Color.black
 ) {
   constructor(
       from: Point,
       to: Point,
-      hasArrowFrom: Boolean,
-      hasArrowTo: Boolean,
-      color: Color
+      hasArrowFrom: Boolean = false,
+      hasArrowTo: Boolean = true,
+      color: Color = Color.black
   ) : this(
       listOf(ConnectedPathElement(from), ConnectedPathElement(to)), hasArrowFrom, hasArrowTo, color)
 }
 
-internal fun Path.insertAfter(element: PathElement, newElement: PathElement): Path {
+fun Path.insertAfter(element: PathElement, newElement: PathElement): Path {
   val insertIndex = elements.indexOf(element) + 1
   return copy(elements = elements.take(insertIndex) + newElement + elements.drop(insertIndex))
 }
 
-internal fun Path.points(): List<Point> = elements.flatMap { it.points() }
+fun Path.points(): List<Point> = elements.flatMap { it.points() }
 
 internal data class AvoidanceBox(val x: Int, val y: Int, val width: Int, val height: Int)
 
